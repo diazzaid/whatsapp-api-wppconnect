@@ -105,7 +105,7 @@ async function startWPP (){
         useChrome: false, // If false will use Chromium instance
         debug: false, // Opens a debug session
         logQR: true, // Logs QR automatically in terminal
-        //browserWS: 'ws://10.252.252.209:3030', // If u want to use browserWSEndpoint
+        //browserWS: 'ws://localhost:3030', // If u want to use browserWSEndpoint
         browserArgs: [
 		'--log-level=3',
                     '--no-default-browser-check',
@@ -139,8 +139,8 @@ async function startWPP (){
 		], 
 		
 		// Parameters to be added into the chrome browser instance
-		puppeteerOptions: {userDataDir: './tokens/session', // for multidevice beta
-		},
+		//puppeteerOptions: {userDataDir: './tokens/session', // for multidevice beta
+		//},
         disableWelcome: false, // Option to disable the welcoming message which appears in the beginning
         updatesLog: true, // Logs info updates automatically in terminal
         autoClose: 60000, // Automatically closes the wppconnect only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false)
