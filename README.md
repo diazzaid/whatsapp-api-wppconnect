@@ -1,5 +1,6 @@
 # whatsapp-api-wppconnect
-rest api simple implementation library wpp-connect support multi device beta
+rest api simple implementation library wppconnect https://github.com/wppconnect-team/wppconnect/blob/master/examples/rest/index.js
+support multi device beta
 1. git clone https://github.com/diazzaid/whatsapp-api-wppconnect.git
 2. cd whatsapp-api-wppconnect
 3. npm i
@@ -20,3 +21,7 @@ rest api simple implementation library wpp-connect support multi device beta
 --data-urlencode 'message=api testing urldecoded'
 11. get status
 12. http://localhost:3000/getconnectionstatus
+
+thanks
+
+wppconnect-team https://github.com/wppconnect-team/wppconnect
