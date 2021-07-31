@@ -6,8 +6,7 @@
   "dependencies": {
     "@wppconnect-team/wppconnect": "^1.8.10",
     "express": "^4.17.1",
-    "express-validator": "^6.12.1",
-    "string.prototype.startswith": "^1.0.0"
+    "express-validator": "^6.12.1"
   },
   "devDependencies": {},
    "scripts": {
