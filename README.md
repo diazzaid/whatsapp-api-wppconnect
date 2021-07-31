@@ -1,5 +1,5 @@
 # whatsapp-api-wppconnect
-rest api simple implementation library wppconnect https://github.com/wppconnect-team/wppconnect/blob/master/examples/rest/index.js
+rest api library simple implementation of wppconnect https://github.com/wppconnect-team/wppconnect/blob/master/examples/rest/index.js
 support multi device beta
 1. git clone https://github.com/diazzaid/whatsapp-api-wppconnect.git
 2. cd whatsapp-api-wppconnect
