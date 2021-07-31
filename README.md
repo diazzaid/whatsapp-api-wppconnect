@@ -5,3 +5,11 @@ rest api simple implementation library wpp-connect support multi device beta
 3. npm i
 4. npm start / node index.js
 5. scan sq
+6. api send message
+  curl --location --request POST 'http://localhost:3000/send-message' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "number": "6281224993382",
+  "message": "api testing"
+}'
+
