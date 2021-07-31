@@ -18,4 +18,5 @@ rest api simple implementation library wpp-connect support multi device beta
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-urlencode 'number=6281224993381' \
 --data-urlencode 'message=api testing urldecoded'
-
+11. get status
+12. http://localhost:3000/getconnectionstatus
