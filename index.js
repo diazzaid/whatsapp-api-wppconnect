@@ -1,11 +1,17 @@
 const express = require('express');
 const app = express();
+const fileUpload = require('express-fileupload');
+
 const wppconnect = require('@wppconnect-team/wppconnect');
 var instance; //variable that the client will receive to be called in other lib functions
 
 
 app.use(express.json()); //parser used for requests via post,
 app.use(express.urlencoded({ extended : true }));
+app.use(fileUpload({
+  debug: false
+}));
+
 
 
 app.get('/getconnectionstatus', async function (req, res) {
@@ -105,7 +111,7 @@ async function startWPP (){
         useChrome: false, // If false will use Chromium instance
         debug: false, // Opens a debug session
         logQR: true, // Logs QR automatically in terminal
-        //browserWS: 'ws://localhost:3030', // If u want to use browserWSEndpoint
+        browserWS: 'ws://10.252.252.209:3030', // If u want to use browserWSEndpoint
         browserArgs: [
 		'--log-level=3',
                     '--no-default-browser-check',
@@ -135,7 +141,7 @@ async function startWPP (){
                     '--disable-accelerated-mjpeg-decode',
                     '--disable-app-list-dismiss-on-blur',
                     '--disable-accelerated-video-decode',
-		    '--single-process' // <- this one doesn't works in Windows
+				    '--single-process', // <- this one doesn't works in Windows
 		], 
 		
 		// Parameters to be added into the chrome browser instance
