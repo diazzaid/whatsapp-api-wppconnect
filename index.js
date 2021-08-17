@@ -106,12 +106,12 @@ async function startWPP (){
         //Create session wss return "serverClose" case server for close
         console.log('Session name: ', session);
     },
-        headless: false, // Headless chrome
-        devtools: true, // Open devtools by default
+        headless: true, // Headless chrome
+        devtools: false, // Open devtools by default
         useChrome: false, // If false will use Chromium instance
         debug: false, // Opens a debug session
         logQR: true, // Logs QR automatically in terminal
-        browserWS: 'ws://10.252.252.209:3030', // If u want to use browserWSEndpoint
+        //browserWS: 'ws://localhost:3030', // If u want to use browserWSEndpoint
         browserArgs: [
 		'--log-level=3',
                     '--no-default-browser-check',
@@ -141,7 +141,7 @@ async function startWPP (){
                     '--disable-accelerated-mjpeg-decode',
                     '--disable-app-list-dismiss-on-blur',
                     '--disable-accelerated-video-decode',
-				    '--single-process', // <- this one doesn't works in Windows
+		    '--single-process', // <- this one doesn't works in Windows
 		], 
 		
 		// Parameters to be added into the chrome browser instance
