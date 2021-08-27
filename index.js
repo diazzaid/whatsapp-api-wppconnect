@@ -236,6 +236,6 @@ async function start(client) {
 }
 
 
-const porta = '3000'; 
-var server = app.listen(porta);
-console.log('Server dimulai pada port %s', server.address().port);
+const port = '3000'; 
+var server = app.listen(port);
+console.log('Server port %s', server.address().port);
