@@ -1,7 +1,18 @@
+var SPINTAX_PATTERN = /\{[^"\r\n\}]*\}/;
+   var spin = function (spun) {
+  var match;
+  while (match = spun.match(SPINTAX_PATTERN)) {
+   match = match[0];
+   var candidates = match.substring(1, match.length - 1).split("|");
+   spun = spun.replace(match, candidates[Math.floor(Math.random() * candidates.length)])
+  }
+  return spun;
+ }
+ 
 const express = require('express');
 const app = express();
 const fileUpload = require('express-fileupload');
-
+const { phoneNumberFormatter } = require('./helpers/formatter');
 const wppconnect = require('@wppconnect-team/wppconnect');
 var instance; //variable that the client will receive to be called in other lib functions
 
@@ -12,7 +23,11 @@ app.use(fileUpload({
   debug: false
 }));
 
-
+app.get('/', (req, res) => {
+  res.sendFile('index.html', {
+    root: __dirname
+  });
+});
 
 app.get('/getconnectionstatus', async function (req, res) {
 
@@ -47,8 +62,8 @@ app.post('/send-message', async function (req, res) {
     console.log("Requested sending VIA POST message");
 
     //parameters coming in the request
-    var number = req.body.number;
-    var message = req.body.message;
+    var number = phoneNumberFormatter(req.body.number);
+    var message = spin(req.body.message);
     //***********/
 
     var return_message =''; //request return message
@@ -61,13 +76,13 @@ app.post('/send-message', async function (req, res) {
                 status = await instance.getConnectionState(); //whats connection status validated 
                                                                 
                 if(status === 'CONNECTED'){
-                    let numberExists = await instance.checkNumberStatus(number+'@c.us');  //Validating if the number exists
+                    let numberExists = await instance.checkNumberStatus(number);  //Validating if the number exists
                  
 					if(numberExists.canReceiveMessage===true){
                        await instance
                             .sendText(numberExists.id._serialized, message)
                             .then((result) => {
-                                console.log('Result: ', result); //return object success
+                                //console.log('Result: ', result); //return object success
                                 success=true;
                                 return_message=result.id;
                             })
@@ -76,13 +91,13 @@ app.post('/send-message', async function (req, res) {
                             });
 
                     }else{
-                        return_message='Nomor tidak tersedia atau diblokir - Nomor tidak tersedia atau diblokir.';
+                        return_message='The number is not registered.';
                     }
                 }else{                          
-                    return_message = 'Validasi koneksi internet atau QRCODE Anda - Validasi koneksi internet atau QRCODE Anda';
+                    return_message = 'Validate your internet connection or QRCODE';
                 }
             }else{
-                return_message = 'Instance tidak diinisialisasi - Instance tidak diinisialisasi';               
+                return_message = 'The instance was not initialized';               
             }
             return_object = {
                 status : success,
@@ -98,7 +113,7 @@ app.post('/send-message', async function (req, res) {
 startWPP(); //call function to initialize the lib
 
 async function startWPP (){ 
-    await wppconnect.create({session: 'session',
+    await wppconnect.create({session: 'chat1',
         catchQR: (base64Qr, asciiQR, attempts, urlCode) => {
     },  
     statusFind: (statusSession, session) => {
@@ -106,12 +121,12 @@ async function startWPP (){
         //Create session wss return "serverClose" case server for close
         console.log('Session name: ', session);
     },
-        headless: true, // Headless chrome
+        headless: false, // Headless chrome
         devtools: false, // Open devtools by default
         useChrome: false, // If false will use Chromium instance
         debug: false, // Opens a debug session
         logQR: true, // Logs QR automatically in terminal
-        //browserWS: 'ws://localhost:3030', // If u want to use browserWSEndpoint
+        //browserWS: 'ws://10.252.252.209:3030', // If u want to use browserWSEndpoint
         browserArgs: [
 		'--log-level=3',
                     '--no-default-browser-check',
@@ -141,15 +156,15 @@ async function startWPP (){
                     '--disable-accelerated-mjpeg-decode',
                     '--disable-app-list-dismiss-on-blur',
                     '--disable-accelerated-video-decode',
-		    '--single-process', // <- this one doesn't works in Windows
+				    '--single-process', // <- this one doesn't works in Windows
 		], 
 		
 		// Parameters to be added into the chrome browser instance
-		//puppeteerOptions: {userDataDir: './tokens/session', // for multidevice beta
+		//puppeteerOptions: {userDataDir: './tokens/chat1', // for multidevice beta
 		//},
         disableWelcome: false, // Option to disable the welcoming message which appears in the beginning
         updatesLog: true, // Logs info updates automatically in terminal
-        autoClose: 60000, // Automatically closes the wppconnect only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false)
+        autoClose: 120000, // Automatically closes the wppconnect only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false)
         tokenStore: 'file', // Define how work with tokens, that can be a custom interface
         folderNameToken: './tokens', //folder name when saving tokens
     }).then((client) => {
@@ -186,13 +201,15 @@ async function start(client) {
         message += `*Device Manufacturer:* ${info.phone.device_manufacturer}\n`;
         message += `*WhatsApp version:* ${info.phone.wa_version}\n`;
         client.sendText(msg.from, message);
-      } else if (msg.body.startsWith('!sendto ')) {
+        
+	//} else if (msg.body.startsWith('!sendto ')) {
         // Direct send a new message to specific id
-        let number = msg.body.split(' ')[1];
-        let messageIndex = msg.body.indexOf(number) + number.length;
-        let message = msg.body.slice(messageIndex, msg.body.length);
-        number = number.includes('@c.us') ? number : `${number}@c.us`;
-        client.sendText(number, message);
+        //let number = msg.body.split(' ')[1];
+        //let messageIndex = msg.body.indexOf(number) + number.length;
+        //let message = msg.body.slice(messageIndex, msg.body.length);
+        //number = number.includes('@c.us') ? number : `${number}@c.us`;
+        //client.sendText(number, message);
+		
       } else if (msg.body.startsWith('!pin ')) {
         let option = msg.body.split(' ')[1];
         if (option == 'true') {
@@ -236,6 +253,6 @@ async function start(client) {
 }
 
 
-const port = '3000'; 
+const port = '8000'; 
 var server = app.listen(port);
-console.log('Server port %s', server.address().port);
+console.log('Server dimulai pada port %s', server.address().port);
