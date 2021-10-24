@@ -1,5 +1,6 @@
 # whatsapp-api-wppconnect
-rest api library simple implementation of wppconnect
+penbambahan fitur spintax
+whatsapp api wppconnect
 support multi device beta
 1. git clone https://github.com/diazzaid/whatsapp-api-wppconnect.git
 2. cd whatsapp-api-wppconnect
@@ -18,9 +19,16 @@ support multi device beta
 10. curl --location --request POST 'http://localhost:3000/send-message' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-urlencode 'number=6281224993381' \
---data-urlencode 'message=api testing urldecoded'
-11. get status
-12. http://localhost:3000/getconnectionstatus
+--data-urlencode 'message=api testing'
+#example spintax
+kalimat / kata di pisah dengan tanda kurung {xyz|zyx}
+11. curl --location --request POST 'http://localhost:3000/send-message' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'number=6281224993381' \
+--data-urlencode 'message={api test|test api}'
+
+12. get status
+13. http://localhost:3000/getconnectionstatus
 
 thanks
 
