@@ -20,8 +20,11 @@ support multi device beta
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-urlencode 'number=6281224993381' \
 --data-urlencode 'message=api testing'
+
 #example spintax
+
 kalimat / kata di pisah dengan tanda kurung {xyz|zyx}
+
 11. curl --location --request POST 'http://localhost:3000/send-message' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-urlencode 'number=6281224993381' \
