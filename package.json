@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
-    "@wppconnect-team/wppconnect": "^1.10.0",
+    "@wppconnect-team/wppconnect": "^1.11.1",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
     "express-validator": "^6.12.1"
