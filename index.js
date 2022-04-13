@@ -132,8 +132,8 @@ async function startWPP (){
 		], 
 		
 		// Parameters to be added into the chrome browser instance
-		//puppeteerOptions: {userDataDir: './tokens/chat1', // for multidevice beta
-		//},
+		puppeteerOptions: {userDataDir: './tokens/chat1', // for multidevice beta
+		},
         disableWelcome: false, // Option to disable the welcoming message which appears in the beginning
         updatesLog: true, // Logs info updates automatically in terminal
         autoClose: 120000, // Automatically closes the wppconnect only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false)
