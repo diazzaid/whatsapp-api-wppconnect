@@ -12,13 +12,13 @@ support multi device beta
 8. curl --location --request POST 'http://localhost:3000/send-message' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-  "number": "6281224993382",
+  "number": "62812249933xx",
   "message": "api testing json"
 }'
 9. urldecoded
 10. curl --location --request POST 'http://localhost:3000/send-message' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
---data-urlencode 'number=6281224993381' \
+--data-urlencode 'number=62812249933xx' \
 --data-urlencode 'message=api testing'
 
 #example spintax
@@ -27,7 +27,7 @@ kalimat / kata di pisah dengan tanda kurung {xyz|zyx}
 
 11. curl --location --request POST 'http://localhost:3000/send-message' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
---data-urlencode 'number=6281224993381' \
+--data-urlencode 'number=62812249933xx' \
 --data-urlencode 'message={api test|test api}'
 
 12. get status
